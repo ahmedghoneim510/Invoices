@@ -9,6 +9,7 @@ use App\Models\invoices_attachments;
 use App\Models\invoices_details;
 use App\Models\products;
 use App\Models\sections;
+use App\Models\User;
 use App\Notifications\AddInvoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -125,8 +126,8 @@ class InvoicesController extends Controller
                 $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
             }
              DB::commit();
-
-            //event(new InvoicesCreated($invoice->id));
+            $users = User::all();
+            event(new InvoicesCreated($invoice,$users));
         }catch(\Exception $e){
             DB::rollback();
             return redirect()->back()->with('error', "هناك خطأ حاول مرة اخري");

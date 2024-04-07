@@ -13,13 +13,16 @@ use Illuminate\Queue\SerializesModels;
 class InvoicesCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $invoice_id;
+    public $invoice;
+    public $users;
+
     /**
      * Create a new event instance.
      */
-    public function __construct($invoice_id)
+    public function __construct($invoice_id,$users)
     {
-        $this->invoice_id=$invoice_id;
+        $this->invoice=$invoice_id;
+        $this->users=$users;
     }
 
 

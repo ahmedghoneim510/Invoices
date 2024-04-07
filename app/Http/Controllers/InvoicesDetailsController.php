@@ -44,6 +44,11 @@ class InvoicesDetailsController extends Controller
      */
     public function show($id)
     {
+        $request = request();
+        if($request->has('notification_id')){
+            $notification_id = $request->notification_id;
+            auth()->user()->notifications()->where('id', $notification_id)->first()->markAsRead();
+        }
         $invoices_details = invoices_details::where('invoice_id', $id)->get();
         //dd($invoices_details);
         $invoice = invoices::find($id);
