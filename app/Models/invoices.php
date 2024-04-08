@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use App\Models\sections;
 class invoices extends Model
 {
     use HasFactory, softDeletes;
@@ -31,7 +31,7 @@ class invoices extends Model
 
     public function section()
     {
-        return $this->belongsTo(Sections::class);
+        return $this->belongsTo(Sections::class, 'section_id','id');
     }
 
     public function scopeFilter(Builder $builder, $filters)
